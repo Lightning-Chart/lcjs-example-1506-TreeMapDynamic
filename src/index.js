@@ -1,4 +1,4 @@
-const lcjs = require('@arction/lcjs')
+const lcjs = require('@lightningchart/lcjs')
 
 const { lightningChart, Themes } = lcjs
 
@@ -8,6 +8,9 @@ const chart = lightningChart({
     theme: Themes[new URLSearchParams(window.location.search).get('theme') || 'darkGold'] || undefined,
 })
 chart.setTitle('Marketplace Product Segmentation')
+chart.setCursorFormatting((_, hit) => {
+    return [[hit.name], [hit.value.toFixed(1)]]
+})
 
 const data = [
     {
@@ -241,10 +244,6 @@ const data = [
 ]
 
 chart.setData(data).setDrillDownEnabled(false)
-
-chart.setCursorResultTableFormatter((builder, node) => {
-    return builder.addRow(node.name).addRow(node.value.toFixed(1))
-})
 
 function randomizeValues(data) {
     data.forEach((item) => {
