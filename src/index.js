@@ -9,7 +9,7 @@ const chart = lightningChart({
 })
 chart.setTitle('Marketplace Product Segmentation')
 chart.setCursorFormatting((_, hit) => {
-    return [[hit.name], [hit.value.toFixed(1)]]
+    return [[{ text: hit.name, rowFillStyle: chart.getTheme().cursorResultTableHeaderBackgroundFillStyle }], [hit.value.toFixed(1)]]
 })
 
 const data = [
@@ -243,7 +243,8 @@ const data = [
     },
 ]
 
-chart.setData(data).setDrillDownEnabled(false)
+chart.setData(data)
+chart.setUserInteractions({ drillDown: undefined })
 
 function randomizeValues(data) {
     data.forEach((item) => {
